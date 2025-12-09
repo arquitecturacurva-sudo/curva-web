@@ -1,26 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --white: #ffffff;
+  --carbon-black: #1d1d1b;
+  --blue-bell: #4699d4;
+  --gray-400: #a3a3a3;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-white: var(--white);
+  --color-carbon-black: var(--carbon-black);
+  --color-blue-bell: var(--blue-bell);
+  --color-gray-400: var(--gray-400);
+  --font-kanit: 'Kanit', sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 300;
+  color: var(--carbon-black);
+  background: var(--white);
+  line-height: 1.6;
+}
+
+/* Nav link hover animation */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--blue-bell);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Image zoom on hover */
+.image-zoom {
+  overflow: hidden;
+}
+
+.image-zoom img {
+  transition: transform 0.5s ease;
+}
+
+.image-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* Headlines */
+.headline {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+/* Navigation/Buttons text style */
+.nav-text {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--blue-bell);
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--carbon-black);
+  color: var(--carbon-black);
+  padding: 1rem 2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--carbon-black);
+  color: var(--white);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: var(--blue-bell);
+  color: white;
 }
