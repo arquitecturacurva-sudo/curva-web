@@ -91,8 +91,86 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* Philosophy Section */}
+      {/* Team Section */}
       <section className="py-24 px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="headline text-3xl md:text-4xl text-[#1d1d1b] mb-4">
+              Nuestro Equipo
+            </h2>
+            <p className="text-[#a3a3a3] max-w-2xl mx-auto">
+              Las mentes creativas detrás de cada proyecto.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Stefano",
+                role: "Director Creativo",
+                description: "Arquitecto con más de 15 años de experiencia en diseño residencial y comercial. Especializado en integración de espacios con el entorno natural.",
+                image: "/nosotros/stefano.jpg",
+              },
+              {
+                name: "Matteo",
+                role: "Director de Proyectos",
+                description: "Experto en gestión de proyectos arquitectónicos de gran escala. Su enfoque meticuloso garantiza la excelencia en cada detalle constructivo.",
+                image: "/nosotros/stefano.jpg",
+              },
+              {
+                name: "Nicolás",
+                role: "Director de Diseño",
+                description: "Innovador en soluciones espaciales contemporáneas. Combina tecnología y artesanía para crear experiencias arquitectónicas únicas.",
+                image: "/nosotros/stefano.jpg",
+              },
+            ].map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-gray-200">
+                  {/* Image with grayscale */}
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  
+                  {/* Hover overlay with description */}
+                  <div className="absolute inset-0 bg-[#1d1d1b]/0 group-hover:bg-[#1d1d1b]/80 transition-all duration-500 flex items-end">
+                    <div className="p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                      <p className="text-white text-sm leading-relaxed">
+                        {member.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Name and role below image */}
+                <div className="mt-6 text-center">
+                  <h3 className="text-xl font-light text-[#1d1d1b] mb-1">{member.name}</h3>
+                  <p className="text-[#a3a3a3] text-sm">{member.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Philosophy Section */}
+      <section className="py-24 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
