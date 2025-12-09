@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Send, CheckCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Send, CheckCircle, Loader2 } from "lucide-react";
+import emailjs from "@emailjs/browser";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -13,16 +14,37 @@ export default function ContactoPage() {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setIsLoading(true);
+
+    try {
+      await emailjs.send(
+        "service_m6ve5dr",
+        "template_u4uvxda",
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          name: formData.name,
+          email: formData.email,
+        },
+        "W5742PSk1SsMbvFG0"
+      );
+
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Hubo un error al enviar el mensaje. Por favor intenta de nuevo.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (
@@ -209,10 +231,20 @@ export default function ContactoPage() {
 
                     <button
                       type="submit"
-                      className="btn-primary w-full flex items-center justify-center gap-2"
+                      disabled={isLoading}
+                      className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      Enviar mensaje
-                      <Send className="w-4 h-4" />
+                      {isLoading ? (
+                        <>
+                          Enviando...
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        </>
+                      ) : (
+                        <>
+                          Enviar mensaje
+                          <Send className="w-4 h-4" />
+                        </>
+                      )}
                     </button>
                   </form>
                 )}
